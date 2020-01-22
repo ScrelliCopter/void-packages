@@ -1,18 +1,22 @@
 # Template file for 'fsearch'
 pkgname=fsearch
-version=0.1beta2
+version=362bbfb
 revision=1
 build_style=gnu-configure
 configure_args="--prefix=/usr"
-hostmakedepends="autogen automake libtool pkg-config autoconf-archive intltool gettext-devel"
+hostmakedepends="git autogen automake libtool pkg-config autoconf-archive intltool gettext-devel"
 makedepends="gtk+3-devel glib-devel pcre-devel"
 depends="gtk+3 glib"
 short_desc="A fast file search utility based on GTK+3"
 maintainer="a dinosaur <nick@a-dinosaur.com>"
 license="GPL-2.0-or-later"
 homepage="https://github.com/cboxdoerfer/fsearch"
-distfiles="https://github.com/cboxdoerfer/fsearch/archive/${version}.tar.gz"
-checksum="46d4bf3a488f426c1044f822a99632c2bb6b85517b6e67ad0e8a507a4c4c526f"
+
+do_fetch() {
+	git clone ${homepage} ${pkgname}-${version}
+	cd ${pkgname}-${version}
+	git reset --hard ${version}
+}
 
 pre_configure() {
 	./autogen.sh
