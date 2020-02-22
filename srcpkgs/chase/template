@@ -1,0 +1,21 @@
+# Template file for 'chase'
+pkgname=chase
+version=0.5.2
+revision=1
+#archs="i686 x86_64"
+#wrksrc=
+#create_wrksrc=yes
+build_style=gnu-configure
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+#hostmakedepends=""
+makedepends="gc-devel"
+short_desc="Small utility for tracking down the actual file that a symbolic link points to - chasing the symlink, if you will. The result of a successful run is guaranteed to be an existing file which is not a symbolic link"
+maintainer="a dinosaur <nick@a-dinosaur.com>"
+license="GPL-2.0-or-later"
+homepage="https://packages.debian.org/sid/chase"
+distfiles="http://deb.debian.org/debian/pool/main/c/chase/chase_${version}.orig.tar.gz"
+checksum=68d95c2d4dc45553b75790fcea4413b7204a2618dff148116ca9bdb0310d737f
