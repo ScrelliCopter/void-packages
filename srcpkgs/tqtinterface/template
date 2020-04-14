@@ -1,0 +1,47 @@
+# Template file for 'tqtinterface'
+pkgname=tqtinterface
+version=14.0.7
+revision=1
+#archs="i686 x86_64"
+wrksrc="${pkgname}-trinity-${version}"
+build_style=cmake
+# "Until the cmake migration is fully completed, tqtinterface should be
+#  built to install with a $PREFIX of /usr rather than /opt/trinity,
+#  even if you are installing everything else to /opt/trinity."
+configure_args="-DBUILD_ALL=ON -DQT_VERSION=3"
+#TODO: use host tools package when that exists
+hostmakedepends="tqt3"
+makedepends="tqt3-devel libX11-devel libglvnd-devel glu-devel"
+short_desc="Abstraction layer for applications using Qt as part of the Trinity Desktop Environment"
+maintainer="a dinosaur <nick@a-dinosaur.com>"
+license="GPL-2.0-or-later"
+homepage="https://www.trinitydesktop.org/"
+distfiles="https://mirror.ppa.trinitydesktop.org/trinity/releases/R${version}/main/dependencies/${pkgname}-trinity-${version}.tar.xz"
+checksum=c6e8c77231d022a6126d9dd8acb5e5d9d6fa46f53a772a2264accf1602242bfe
+nocross=yes # playing it safe for now
+
+_environment() {
+	export QTDIR=/opt/trinity
+	export PATH="${QTDIR}/bin:${PATH}"
+	export LD_LIBRARY_PATH="${QTDIR}/lib:${LD_LIBRARY_PATH}"
+}
+
+pre_configure() {
+	_environment
+}
+
+pre_build() {
+	_environment
+}
+
+#TODO: is this whole package a devel package?
+#tqtinterface-devel_package() {
+#	depends="${sourcepkg}-${version}_${revision}"
+#	short_desc+=" - Development files"
+#	pkg_install() {
+#		vmove usr/bin
+#		vmove usr/include
+#		vmove usr/lib/pkgconfig
+#		vmove usr/lib/*.la
+#	}
+#}

@@ -468,6 +468,7 @@ libtqassistantclient.so.1 tqt3-14.0.7_1
 libtqui.so.1 tqt3-14.0.7_1
 libtqtdesignercore.so.1 tqt3-14.0.7_1
 libtqteditor.so.1 tqt3-14.0.7_1
+libtqt.so.4 tqtinterface-14.0.7_1
 libsysfs.so.2 libsysfs-2.1.0_1
 libsensors.so.5 libsensors-3.5.0_1
 libcap-ng.so.0 libcap-ng-0.6.2_1
