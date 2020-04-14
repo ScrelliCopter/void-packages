@@ -1,0 +1,22 @@
+# Template file for 'freac'
+pkgname=freac
+version=1.1
+revision=1
+#archs="i686 x86_64"
+#wrksrc=
+#create_wrksrc=yes
+build_style=gnu-makefile
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends=""
+makedepends=""
+depends=""
+short_desc="Graphical audio converter and CD ripper with support for various popular formats and encoders"
+maintainer="a dinosaur <nick@a-dinosaur.com>"
+license="GPL-2.0-or-later"
+homepage="https://www.freac.org/"
+distfiles="https://github.com/enzo1982/freac/releases/download/v${version}/freac-${version}.tar.gz"
+checksum=51fcad344b681e588def550b752aea9573f9acf7fcceb39132b481f2368b7edb
