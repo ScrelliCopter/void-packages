@@ -1,0 +1,14 @@
+# Template file for 'quiterss'
+pkgname=quiterss
+version=0.19.4
+revision=1
+build_style=qmake
+configure_args="CONFIG+=release DISABLE_PHONON=1"
+hostmakedepends="qt5-qmake pkg-config"
+makedepends="qt5-devel qt5-webkit-devel qt5-multimedia-devel sqlite-devel"
+short_desc="Open-source cross-platform RSS/Atom news feed reader"
+maintainer="a dinosaur <nick@a-dinosaur.com>"
+license="GPL-3.0-or-later"
+homepage="https://quiterss.org/"
+distfiles="https://github.com/QuiteRSS/quiterss/archive/${version}.tar.gz"
+checksum=d9dffa205a8ec4e7bf00d87183fd94d4a12f045fae04a6efd41d6557827233bc
