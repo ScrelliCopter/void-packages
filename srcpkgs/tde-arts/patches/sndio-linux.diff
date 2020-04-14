@@ -1,0 +1,33 @@
+diff -u arts-trinity-14.0.7/flow/audioiosndio.cc arts-trinity-14.0.7-sndio/flow/audioiosndio.cc
+--- arts-trinity-14.0.7/flow/audioiosndio.cc	2018-05-21 04:04:51.000000000 +1000
++++ arts-trinity-14.0.7-sndio/flow/audioiosndio.cc	2020-04-15 03:54:08.153145925 +1000
+@@ -21,6 +21,7 @@
+ #ifdef HAVE_LIBSNDIO
+ 
+ #include <sys/types.h>
++#include <linux/limits.h>
+ #include <errno.h>
+ #include <math.h>
+ 
+@@ -87,6 +88,21 @@
+ 	param(direction) = directionWrite;
+ }
+ 
++static size_t strlcpy(char * dst, const char * src, size_t size)
++{
++	size_t srclen = strlen(src);
++	if (size > 0) {
++		size_t len = srclen < size - 1 ? srclen : size - 1;
++		memcpy(dst, src, len);
++		dst[len] = '\0';
++	}
++	return srclen;
++}
++
++#ifndef NBBY
++#define NBBY 8 /* number of bits in a byte */
++#endif
++
+ bool AudioIOSNDIO::open()
+ {
+ 	string& _error = paramStr(lastError);

@@ -1,0 +1,46 @@
+# Template file for 'arts'
+_name=arts
+pkgname=tde-${_name}
+version=14.0.7
+revision=1
+patch_args="-Np1"
+#archs="i686 x86_64"
+wrksrc="${_name}-trinity-${version}"
+build_style=cmake
+_prefix=/opt/trinity
+configure_args="-DCMAKE_INSTALL_PREFIX=${_prefix} -DWITH_JACK=ON -DWITH_SNDIO=ON"
+hostmakedepends="tqt3 pkg-config"
+makedepends="tqt3-devel tqtinterface alsa-lib-devel audiofile-devel libvorbis-devel libmad-devel jack-devel sndio-devel glib-devel"
+short_desc="Sound server and mixer for use with the Trinity Desktop Environment"
+maintainer="a dinosaur <nick@a-dinosaur.com>"
+license="GPL-2.0-or-later"
+homepage="https://www.trinitydesktop.org/"
+distfiles="https://mirror.ppa.trinitydesktop.org/trinity/releases/R${version}/main/dependencies/${_name}-trinity-${version}.tar.xz"
+checksum=87a1c40690fdefb73e67925b6c363b312dbc7a4b45d955936a40eaab11a18433
+
+_environment() {
+	export QTDIR="${_prefix}"
+	export PATH="${QTDIR}/bin:${PATH}"
+	export LD_LIBRARY_PATH="${QTDIR}/lib:${LD_LIBRARY_PATH}"
+}
+
+pre_configure() {
+	_environment
+}
+
+pre_build() {
+	_environment
+}
+
+tde-arts-devel_package() {
+	depends="${sourcepkg}>=${version}_${revision}"
+	short_desc+=" - Development files"
+	pkg_install() {
+		vmove opt/trinity/bin/artsc-config
+		vmove opt/trinity/include
+		vmove opt/trinity/lib/pkgconfig
+		vmove "opt/trinity/lib/*.a"
+		vmove "opt/trinity/lib/*.la"
+		vmove "opt/trinity/lib/*.so"
+	}
+}
