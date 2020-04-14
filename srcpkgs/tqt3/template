@@ -1,0 +1,68 @@
+# Template file for 'tqt3'
+pkgname=tqt3
+version=14.0.7
+revision=1
+#archs="i686 x86_64"
+wrksrc="${pkgname}-trinity-${version}"
+build_style=configure
+_prefix=/opt/trinity
+_sysconfdir=/etc/trinity
+configure_args="--prefix=${_prefix} --sysconfdir=${_sysconfdir} -system-zlib -qt-gif"
+makedepends="libuuid-devel libX11-devel libXinerama-devel libXcursor-devel
+ libXrandr-devel libXrender-devel libXft-devel libSM-devel libglvnd-devel
+ glu-devel cups-devel libXmu-devel libmng-devel glibc-devel"
+short_desc="Fork of Qt 3.3.8 for the Trinity Desktop Environment"
+maintainer="a dinosaur <nick@a-dinosaur.com>"
+license="GPL-2.0-or-later"
+homepage="https://www.trinitydesktop.org/"
+distfiles="https://mirror.ppa.trinitydesktop.org/trinity/releases/R${version}/main/dependencies/${pkgname}-trinity-${version}.tar.xz"
+checksum=3e6e80b3defa2c8ba4e2ad183929ebc30ea2d1507bf8748fee14828532ecb25a
+nocross=yes # playing it safe for now
+
+_environment() {
+	export PREFIX=${_prefix}
+	export SYSCONFDIR=${_sysconfdir}
+	export PATH="${wrksrc}/bin:${PATH}"
+	export LD_LIBRARY_PATH="${wrksrc}/lib:${LD_LIBRARY_PATH}"
+}
+
+pre_configure() {
+	_environment
+}
+
+pre_build() {
+	_environment
+}
+
+do_install() {
+	make install INSTALL_ROOT=${DESTDIR}
+}
+
+tqt3-devel_package() {
+	depends="${sourcepkg}-${version}_${revision}"
+	short_desc+=" - Development files"
+	pkg_install() {
+		#for i in lrelease lupdate moc uic; do
+		#	vmove "opt/trinity/bin/tq${i}"
+		#done
+		vmove opt/trinity/include
+		vmove opt/trinity/lib/pkgconfig
+		vmove "opt/trinity/lib/*.la"
+		vmove "opt/trinity/lib/*.prl"
+		vmove opt/trinity/mkspecs
+		vmove opt/trinity/phrasebooks
+		vmove opt/trinity/templates
+	}
+}
+
+#TODO: split designer, tools, db plugins, tqmake, etc... like qt4 package
+
+tqt3-doc_package() {
+	#TODO: depend on tools for assistant instead of bundling it with docs
+	#depends="${sourcepkg}-${version}_${revision}"
+	short_desc+=" - Documentation"
+	pkg_install() {
+		#vmove opt/trinity/bin/tqassistant
+		vmove opt/trinity/doc
+	}
+}
