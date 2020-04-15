@@ -1,0 +1,28 @@
+# Template file for 'avahi-tqt'
+pkgname=avahi-tqt
+version=14.0.7
+revision=1
+#archs="i686 x86_64"
+wrksrc="${pkgname}-trinity-${version}"
+build_style=cmake
+_prefix="/opt/trinity"
+configure_args="-DCMAKE_INSTALL_PREFIX=${_prefix}"
+hostmakedepends="pkgconf"
+makedepends="tqt3-devel tqtinterface-devel avahi-libs-devel"
+short_desc="Multicast DNS Responder (TQT Support) for the Trinity Desktop Environment"
+maintainer="a dinosaur <nick@a-dinosaur.com>"
+license="LGPL-2.1-or-later"
+homepage="https://www.trinitydesktop.org/"
+distfiles="https://mirror.ppa.trinitydesktop.org/trinity/releases/R${version}/main/dependencies/${pkgname}-trinity-${version}.tar.xz"
+checksum=88ccb8b48dc829b26330da0cfa555d11e53498e534aa052e4bdbe95632b2d1e3
+
+avahi-tqt-devel_package() {
+	depends="${sourcepkg}-${version}_${revision}"
+	short_desc+=" - Development files"
+	pkg_install() {
+		vmove opt/trinity/include
+		vmove opt/trinity/lib/pkgconfig
+		vmove "opt/trinity/lib/*.a"
+		vmove "opt/trinity/lib/*.so"
+	}
+}

@@ -487,6 +487,7 @@ libqtmcop.so.1 tde-arts-14.0.7_1
 libdbus-tqt-1.so.0 dbus-tqt-14.0.7_1
 libdbus-1-tqt.so.0 dbus-1-tqt-14.0.7_1
 libart_lgpl_2.so.2 tde-libart-lgpl-14.0.7_1
+libavahi-tqt.so.1 avahi-tqt-14.0.7_1
 libsysfs.so.2 libsysfs-2.1.0_1
 libsensors.so.5 libsensors-3.5.0_1
 libcap-ng.so.0 libcap-ng-0.6.2_1
