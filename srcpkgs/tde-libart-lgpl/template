@@ -1,0 +1,32 @@
+# Template file for 'tde-libart-lgpl'
+#TODO: can TDE use the vanilla libart already packaged in void?
+_name=libart-lgpl
+pkgname=tde-${_name}
+version=14.0.7
+revision=1
+#archs="i686 x86_64"
+wrksrc="${_name}-trinity-${version}"
+build_style=cmake
+_prefix="/opt/trinity"
+configure_args="-DCMAKE_INSTALL_PREFIX=${_prefix}"
+hostmakedepends=""
+makedepends=""
+short_desc="High-performance 2D graphics library for the Trinity Desktop Environment"
+maintainer="a dinosaur <nick@a-dinosaur.com>"
+license="LGPL-2.0-or-later"
+homepage="https://www.trinitydesktop.org/"
+distfiles="https://mirror.ppa.trinitydesktop.org/trinity/releases/R${version}/main/dependencies/${_name}-trinity-${version}.tar.xz"
+checksum=e87e8e3c89f5363130b5d2d1a28e0a7f539d5dbc3fa450dec14bf15bb725b909
+
+tde-libart-lgpl-devel_package() {
+	depends="${sourcepkg}-${version}_${revision}"
+	short_desc+=" - Development files"
+	pkg_install() {
+		vmove opt/trinity/bin/libart2-config
+		vmove opt/trinity/share/man/man1/libart2-config.1
+		vmove opt/trinity/include
+		vmove opt/trinity/lib/pkgconfig
+		vmove "opt/trinity/lib/*.a"
+		vmove "opt/trinity/lib/*.so"
+	}
+}
