@@ -47,8 +47,8 @@ tqt3-devel_package() {
 		#done
 		vmove opt/trinity/include
 		vmove opt/trinity/lib/pkgconfig
-		vmove "opt/trinity/lib/*.la"
 		vmove "opt/trinity/lib/*.prl"
+		vmove "opt/trinity/lib/*.so"
 		vmove opt/trinity/mkspecs
 		vmove opt/trinity/phrasebooks
 		vmove opt/trinity/templates
