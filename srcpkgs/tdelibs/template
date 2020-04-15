@@ -1,0 +1,53 @@
+# Template file for 'tdelibs'
+pkgname=tdelibs
+version=14.0.7
+revision=1
+#archs="i686 x86_64"
+patch_args="-Np1"
+wrksrc="${pkgname}-trinity-${version}"
+build_style=cmake
+_prefix="/opt/trinity"
+_sysconfdir="/etc/trinity"
+#-DCMAKE_FIND_DEBUG_MODE=1
+configure_args="-DCMAKE_INSTALL_PREFIX=${_prefix}
+ -DSYSCONF_INSTALL_DIR=${_sysconfdir} -DWITH_SSL=OFF -DCMAKE_SKIP_RPATH=OFF -DWITH_ARTS=OFF"
+hostmakedepends="pkgconf perl"
+#TODO: figure out how to add tde-arts-devel
+makedepends="tqt3-devel tqtinterface-devel dbus-1-tqt-devel file-devel bzip2-devel
+ libjpeg-turbo-devel libpng-devel freetype-devel fontconfig-devel libXrandr-devel
+ libXcomposite-devel libxml2-devel libxslt-devel libglib-devel alsa-lib-devel
+ cups-devel eudev-libudev-devel libSM-devel libXt-devel libXft-devel"
+short_desc="Central libraries used by components of the Trinity Desktop Environment"
+maintainer="a dinosaur <nick@a-dinosaur.com>"
+license="GPL-2.0-or-later"
+homepage="https://www.trinitydesktop.org/"
+distfiles="https://mirror.ppa.trinitydesktop.org/trinity/releases/R${version}/main/${pkgname}-trinity-${version}.tar.xz"
+checksum=aa4d9ae13dbe9036dde3b8b1cfb3cee01ac5619238f395e75e30554f80c6e678
+
+_environment() {
+	export QTDIR="${_prefix}"
+	export PATH=${QTDIR}/bin:${PATH}
+	export LD_LIBRARY_PATH=${QTDIR}/lib:${LD_LIBRARY_PATH}
+	#export PKG_CONFIG_PATH=${QTDIR}/lib/pkgconfig:${PKG_CONFIG_PATH}
+	#export PKG_CONFIG_PATH="${QTDIR}/lib/pkgconfig"
+}
+
+pre_configure() {
+	_environment
+}
+
+pre_build() {
+	_environment
+}
+
+tdelibs-devel_package() {
+	depends="${sourcepkg}-${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove opt/trinity/share/cmake
+		vmove opt/trinity/include
+		vmove opt/trinity/lib/pkgconfig
+		vmove "opt/trinity/lib/*.a"
+		vmove "opt/trinity/lib/*.so"
+	}
+}

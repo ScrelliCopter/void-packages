@@ -1,0 +1,16 @@
+diff -u tdelibs-trinity-14.0.7/tdeio/kssl/kopenssl.h tdelibs-trinity-14.0.7-libressl/tdeio/kssl/kopenssl.h 
+--- tdelibs-trinity-14.0.7/tdeio/kssl/kopenssl.h	2019-05-10 22:31:17.000000000 +1000
++++ tdelibs-trinity-14.0.7-libressl/tdeio/kssl/kopenssl.h	2020-04-15 19:20:58.355285966 +1000
+@@ -60,10 +60,12 @@
+ 
+ #include <kstaticdeleter.h>
+ 
++#ifdef KSSL_HAVE_SSL
+ #if OPENSSL_VERSION_NUMBER < 0x10100000L || defined(LIBRESSL_VERSION_NUMBER)
+ typedef int (*X509_STORE_CTX_verify_cb)(int, X509_STORE_CTX *);
+ typedef int X509_LOOKUP_TYPE;
+ #endif
++#endif
+ 
+ /**
+  * Dynamically load and wrap OpenSSL.
