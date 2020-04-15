@@ -1,0 +1,42 @@
+# Template file for 'dbus-1-tqt'
+pkgname=dbus-1-tqt
+version=14.0.7
+revision=1
+#archs="i686 x86_64"
+wrksrc="${pkgname}-trinity-${version}"
+build_style=cmake
+_prefix=/opt/trinity
+configure_args="-DCMAKE_INSTALL_PREFIX=${_prefix}"
+hostmakedepends="tqt3 tqtinterface-devel pkgconf"
+makedepends="tqt3-devel tqtinterface-devel dbus-devel"
+short_desc="D-Bus libraries for the Trinity Desktop Environment"
+maintainer="a dinosaur <nick@a-dinosaur.com>"
+license="GPL-2.0-or-later"
+homepage="https://www.trinitydesktop.org/"
+distfiles="https://mirror.ppa.trinitydesktop.org/trinity/releases/R${version}/main/dependencies/${pkgname}-trinity-${version}.tar.xz"
+checksum=0af8b2e61999e8ae54c44a07bdc7c8daf3113225f2dc15b3613b560ab1384cca
+
+_environment() {
+	export QTDIR="${_prefix}"
+	export PATH="${QTDIR}/bin:${PATH}"
+	export LD_LIBRARY_PATH="${QTDIR}/lib:${LD_LIBRARY_PATH}"
+}
+
+pre_configure() {
+	_environment
+}
+
+pre_build() {
+	_environment
+}
+
+dbus-1-tqt-devel_package() {
+	depends="${sourcepkg}-${version}_${revision}"
+	short_desc+=" - development files"
+	pkg_install() {
+		vmove opt/trinity/bin/dbusxml2qt3
+		vmove opt/trinity/include
+		vmove opt/trinity/lib/pkgconfig
+		vmove "opt/trinity/lib/*.so"
+	}
+}
