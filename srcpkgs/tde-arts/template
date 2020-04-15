@@ -1,4 +1,4 @@
-# Template file for 'arts'
+# Template file for 'tde-arts'
 _name=arts
 pkgname=tde-${_name}
 version=14.0.7
