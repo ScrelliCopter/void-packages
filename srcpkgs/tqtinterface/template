@@ -41,7 +41,6 @@ tqtinterface-devel_package() {
 		vmove usr/bin
 		vmove usr/include
 		vmove usr/lib/pkgconfig
-		vmove "usr/lib/*.la"
 		vmove "usr/lib/*.so"
 	}
 }
