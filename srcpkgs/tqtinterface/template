@@ -34,14 +34,14 @@ pre_build() {
 	_environment
 }
 
-#TODO: is this whole package a devel package?
-#tqtinterface-devel_package() {
-#	depends="${sourcepkg}-${version}_${revision}"
-#	short_desc+=" - Development files"
-#	pkg_install() {
-#		vmove usr/bin
-#		vmove usr/include
-#		vmove usr/lib/pkgconfig
-#		vmove usr/lib/*.la
-#	}
-#}
+tqtinterface-devel_package() {
+	depends="${sourcepkg}-${version}_${revision}"
+	short_desc+=" - Development files"
+	pkg_install() {
+		vmove usr/bin
+		vmove usr/include
+		vmove usr/lib/pkgconfig
+		vmove "usr/lib/*.la"
+		vmove "usr/lib/*.so"
+	}
+}
