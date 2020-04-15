@@ -36,7 +36,6 @@ dbus-tqt-devel_package() {
 	pkg_install() {
 		vmove opt/trinity/include
 		vmove opt/trinity/lib/pkgconfig
-		vmove "opt/trinity/lib/*.a"
 		vmove "opt/trinity/lib/*.so"
 	}
 }
