@@ -8,9 +8,11 @@ patch_args="-Np1"
 wrksrc="${_name}-trinity-${version}"
 build_style=cmake
 _prefix=/opt/trinity
-configure_args="-DCMAKE_INSTALL_PREFIX=${_prefix} -DWITH_JACK=ON -DWITH_SNDIO=ON"
-hostmakedepends="tqt3 pkg-config"
-makedepends="tqt3-devel tqtinterface alsa-lib-devel audiofile-devel libvorbis-devel libmad-devel jack-devel sndio-devel glib-devel"
+configure_args="-DCMAKE_INSTALL_PREFIX=${_prefix}
+ -DWITH_JACK=ON -DWITH_SNDIO=ON"
+hostmakedepends="tqt3 pkgconf"
+makedepends="tqt3-devel tqtinterface-devel alsa-lib-devel audiofile-devel
+ libvorbis-devel libmad-devel jack-devel sndio-devel glib-devel"
 short_desc="Sound server and mixer for use with the Trinity Desktop Environment"
 maintainer="a dinosaur <nick@a-dinosaur.com>"
 license="GPL-2.0-or-later"
@@ -40,7 +42,6 @@ tde-arts-devel_package() {
 		vmove opt/trinity/include
 		vmove opt/trinity/lib/pkgconfig
 		vmove "opt/trinity/lib/*.a"
-		vmove "opt/trinity/lib/*.la"
 		vmove "opt/trinity/lib/*.so"
 	}
 }
