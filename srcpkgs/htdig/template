@@ -1,0 +1,49 @@
+# Template file for 'htdig'
+pkgname=htdig
+version=3.2.0b6
+revision=1
+patch_args="-Np1"
+build_style=gnu-configure
+configure_args="--mandir=/usr/share/man --with-config-dir=/etc/htdig
+ --with-default-config-file=/etc/htdig/htdig.conf
+ --with-database-dir=/var/htdig --with-cgi-bin-dir=/usr/bin
+ --with-search-dir=/usr/share/doc/htdig --with-image-dir=/usr/share/doc/htdig
+ --with-ssl"
+makedepends="automake libtool zlib-devel libressl-devel"
+short_desc="Complete HTTP indexing and searching system for a domain or intranet"
+maintainer="a dinosaur <nick@a-dinosaur.com>"
+license="LGPL-2.0-or-later"
+homepage="http://htdig.sourceforge.net/"
+distfiles="${SOURCEFORGE_SITE}/${pkgname}/${pkgname}-${version}.tar.bz2"
+checksum=c1272c8ca5efcb15b8d51f391d3707bcf2f7b6ef7af9e2af3b6d1820129014e5
+
+#pre_configure() {
+#	autoreconf -fi
+#}
+
+post_install() {
+	vcopy "htdoc/*.html" usr/share/doc/htdig
+	vcopy "htdoc/*.gif" usr/share/doc/htdig
+	vdoc htdoc/COPYING
+	vdoc htdoc/ChangeLog
+}
+
+htdig-devel_package() {
+	depends="${pkgname}-${version}_${revision}"
+	short_desc+=" - Development files"
+	pkg_install() {
+		vmove usr/include
+		local i
+		for i in $(find "${DESTDIR}" -printf '%P\n' | awk '/^usr\/lib\/(.+\.a$|.+\.so$)/&&!/.+-3\.2\.0\.so$/'); do
+			vmove "${i}"
+		done
+	}
+}
+
+htdig-doc_package() {
+	archs=noarch
+	short_desc+=" - Documentation"
+	pkg_install() {
+		vmove "usr/share/doc/htdig"
+	}
+}

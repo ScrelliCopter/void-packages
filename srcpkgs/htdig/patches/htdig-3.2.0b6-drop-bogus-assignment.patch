@@ -1,0 +1,18 @@
+diff --git a/htdig/Parsable.cc b/htdig/Parsable.cc
+index 049362a..a51b366 100644
+--- a/htdig/Parsable.cc
++++ b/htdig/Parsable.cc
+@@ -74,7 +74,6 @@ Parsable::addString(Retriever& retriever, char *s, int& wordindex, int slot)
+ 	    retriever.got_word(w, wordindex++, slot); // slot for img_alt
+ 	w = HtWordToken(0);
+     }
+-    w = '\0';
+ }
+ 
+ //*****************************************************************************
+@@ -92,5 +91,4 @@ Parsable::addKeywordString(Retriever& retriever, char *s, int& wordindex)
+ 	    retriever.got_word(w, wordindex++, 9);
+ 	w = HtWordToken(0);
+     }
+-    w = '\0';
+ }
