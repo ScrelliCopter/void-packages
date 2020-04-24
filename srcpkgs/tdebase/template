@@ -1,0 +1,36 @@
+# Template file for 'tdebase'
+pkgname=tdebase
+version=14.0.7
+revision=1
+#archs="i686 x86_64"
+wrksrc="${pkgname}-trinity-${version}"
+build_style=cmake
+_prefix="/opt/trinity"
+_sysconfdir="/etc/trinity"
+configure_args="-DCMAKE_INSTALL_PREFIX=${_prefix}
+ -DSYSCONF_INSTALL_DIR=${_sysconfdir} -DBUILD_ALL=ON -DWITH_SSL=OFF"
+hostmakedepends="bdftopcf htdig pkgconf perl"
+makedepends="tqt3-devel tqtinterface-devel tdelibs-devel dbus-1-tqt-devel
+ alsa-lib-devel eudev-libudev-devel fontconfig-devel freetype-devel libglib-devel
+ libjpeg-turbo-devel libSM-devel libX11-devel libXcomposite-devel libXft-devel
+ libXt-devel libXtst-devel libxkbfile-devel"
+short_desc="Base applications & utilities of the Trinity Destkop Environment"
+maintainer="a dinosaur <nick@a-dinosaur.com>"
+license="GPL-2.0-or-later"
+homepage="https://www.trinitydesktop.org/"
+distfiles="https://mirror.ppa.trinitydesktop.org/trinity/releases/R${version}/main/${pkgname}-trinity-${version}.tar.xz"
+checksum=10d241d15ccbf8e13cf696420d0e638a60a27403a79dbcb6a60165b60efcb80e
+
+_environment() {
+	export QTDIR="${_prefix}"
+	export PATH=${QTDIR}/bin:${PATH}
+	export LD_LIBRARY_PATH=${QTDIR}/lib:${LD_LIBRARY_PATH}
+}
+
+pre_configure() {
+	_environment
+}
+
+pre_build() {
+	_environment
+}
