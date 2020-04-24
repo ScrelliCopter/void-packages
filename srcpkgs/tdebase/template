@@ -20,6 +20,7 @@ license="GPL-2.0-or-later"
 homepage="https://www.trinitydesktop.org/"
 distfiles="https://mirror.ppa.trinitydesktop.org/trinity/releases/R${version}/main/${pkgname}-trinity-${version}.tar.xz"
 checksum=10d241d15ccbf8e13cf696420d0e638a60a27403a79dbcb6a60165b60efcb80e
+keep_libtool_archives=yes
 
 _environment() {
 	export QTDIR="${_prefix}"
