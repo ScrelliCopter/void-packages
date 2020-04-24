@@ -3,7 +3,6 @@ pkgname=tdelibs
 version=14.0.7
 revision=1
 #archs="i686 x86_64"
-patch_args="-Np1"
 wrksrc="${pkgname}-trinity-${version}"
 build_style=cmake
 _prefix="/opt/trinity"
@@ -23,6 +22,12 @@ license="GPL-2.0-or-later"
 homepage="https://www.trinitydesktop.org/"
 distfiles="https://mirror.ppa.trinitydesktop.org/trinity/releases/R${version}/main/${pkgname}-trinity-${version}.tar.xz"
 checksum=aa4d9ae13dbe9036dde3b8b1cfb3cee01ac5619238f395e75e30554f80c6e678
+patch_args="-Np1"
+shlib_provides="libtdeinit_cupsdconf.so libtdeinit_dcopserver.so
+ libtdeinit_kaddprinterwizard.so libtdeinit_kcookiejar.so libtdeinit_kded.so
+ libtdeinit_tdebuildsycoca.so libtdeinit_tdecmshell.so
+ libtdeinit_tdeconf_update.so libtdeinit_tdeio_http_cache_cleaner.so
+ libtdeinit_tdeio_uiserver.so libtdeinit_tdelauncher.so"
 
 _environment() {
 	export QTDIR="${_prefix}"
@@ -48,6 +53,8 @@ tdelibs-devel_package() {
 		vmove opt/trinity/include
 		vmove opt/trinity/lib/pkgconfig
 		vmove "opt/trinity/lib/*.a"
-		vmove "opt/trinity/lib/*.so"
+		for i in $(find "${DESTDIR}" -maxdepth 4 -wholename "*opt/trinity/lib*.so" -type l -printf '%P\n'); do
+			vmove "${i}"
+		done
 	}
 }
