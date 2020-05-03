@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=1.1
+Name=Munt
+GenericName=MT-32 Emulator
+Comment=Software synthesiser emulating the Roland MT-32, CM-32L, and LAPC-I
+Icon=munt
+TryExec=mt32emu-qt
+Exec=mt32emu-qt
+Categories=Audio;AudioVideo;Music;Emulator;Qt;
