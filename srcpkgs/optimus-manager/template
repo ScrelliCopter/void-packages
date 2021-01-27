@@ -1,0 +1,48 @@
+# Template file for 'optimus-manager'
+pkgname=optimus-manager
+version=1.3.1
+revision=1
+#archs="i686 x86_64"
+#wrksrc=
+#create_wrksrc=yes
+#build_style=gnu-configure
+#configure_args=""
+#make_build_args=""
+#make_install_args=""
+#conf_files=""
+#make_dirs="/var/log/dir 0755 root root"
+hostmakedepends="python3-setuptools"
+#makedepends=""
+depends="python3-dbus glxinfo xrandr"
+short_desc="Program to handle GPU switching on Optimus laptops"
+maintainer="a dinosaur <nick@a-dinosaur.com>"
+license="MIT"
+homepage="https://github.com/Askannz/optimus-manager"
+distfiles="https://github.com/Askannz/optimus-manager/archive/v${version}.tar.gz"
+checksum=50bbe41d0a2b7bea7cb1ab60029a1c329f2867142f8ac71987e46f34dee92603
+
+do_build() {
+	python3 setup.py build
+}
+
+do_install() {
+	vlicense LICENSE
+	vinstall modules/optimus-manager.conf 644 usr/lib/modprobe.d
+	vsv optimus-manager
+	vinstall optimus-manager.conf 644 usr/share
+
+	vinstall login_managers/sddm/20-optimus-manager.conf 644 etc/sddm.conf.d
+	vinstall login_managers/lightdm/20-optimus-manager.conf 644 etc/lightdm/lightdm.conf.d
+
+	vinstall config/xsetup-intel.sh 644 etc/optimus-manager
+	vinstall config/xsetup-nvidia.sh 644 etc/optimus-manager
+
+	vinstall config/xsetup-intel.sh 755 etc/optimus-manager
+	vinstall config/xsetup-nvidia.sh 755 etc/optimus-manager
+	vinstall config/xsetup-hybrid.sh 755 etc/optimus-manager
+
+	vinstall config/nvidia-enable.sh 755 etc/optimus-manager
+	vinstall config/nvidia-disable.sh 755 etc/optimus-manager
+
+	python3 setup.py install --root="${DESTDIR}/" --optimize=1 --skip-build
+}
