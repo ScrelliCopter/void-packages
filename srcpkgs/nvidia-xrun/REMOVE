@@ -1,0 +1,7 @@
+case "$ACTION" in
+post)
+	for i in /etc/X11/xinit/nvidia-xinitrc.d /etc/X11/nvidia-xorg.conf.d; do
+		[ -d "$i" ] && rmdir "$i" 2>/dev/null
+	done
+	;;
+esac
