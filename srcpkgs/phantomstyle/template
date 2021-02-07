@@ -1,0 +1,22 @@
+# Template file for 'phantomstyle'
+pkgname=phantomstyle
+version=68
+revision=1
+_githash=6e9580b72e372b5acecd616434eaf441bf73bcf4
+wrksrc="${pkgname}-${_githash}"
+build_wrksrc=src/styleplugin
+build_style=qmake
+hostmakedepends="git qt5-qmake"
+makedepends="qt5-devel"
+short_desc="Qt5 style plugin for traditionalists"
+maintainer="a dinosaur <nick@a-dinosaur.com>"
+license="LGPL-2.1-or-later, MIT"
+homepage="https://github.com/randrew/phantomstyle"
+distfiles="https://github.com/randrew/phantomstyle/archive/${_githash}.tar.gz"
+checksum=ee0f67f57c04bbd3c0c070bb593b2ad7082b9e50e760a93118b90533c5282739
+
+do_install() {
+	vinstall libphantomstyleplugin.so 755 usr/lib/qt5/plugins/styles/
+	vlicense ${wrksrc}/LICENSE-hsluv-c.md
+	vdoc ${wrksrc}/README.md
+}
